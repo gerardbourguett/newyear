@@ -11,7 +11,6 @@ const Page = () => {
     days: 0,
   });
     
-    
 
   const countDown = () => {
     const countDate = new Date("Dec 31, 2024 07:00:00").getTime();

@@ -10,10 +10,11 @@ const Page = () => {
     seconds: 0,
     days: 0,
   });
-    
+
+  const year = new Date().getFullYear();
 
   const countDown = () => {
-    const countDate = new Date("Dec 31, 2024 07:00:00").getTime();
+    const countDate = new Date(`Dec 31, ${year} 07:00:00`).getTime();
     const now = new Date().getTime();
     const gap = countDate - now;
 
@@ -40,11 +41,18 @@ const Page = () => {
       <main className="h-screen flex flex-col gap-8 row-start-2 items-center justify-center sm:items-start">
         <div className="text-center space-y-8">
           <h1 className="text-5xl md:text-7xl font-medium tracking-tight">
-            #Chao<span className="text-red-500">2024</span>
+            #Chao<span className="text-red-500">{year}</span>
           </h1>
 
           <div className="grid grid-cols-4 gap-4 items-center">
-            {(["days", "hours", "minutes", "seconds"] as (keyof typeof timeLeft)[]).map((unit, idx) => (
+            {(
+              [
+                "days",
+                "hours",
+                "minutes",
+                "seconds",
+              ] as (keyof typeof timeLeft)[]
+            ).map((unit, idx) => (
               <div key={idx} className="flex flex-col items-center space-y-2">
                 <div className="bg-gray-800 rounded-lg p-4 shadow-lg transition-transform transform hover:scale-105">
                   <span className="text-5xl md:text-6xl font-bold text-red-400">
@@ -59,7 +67,7 @@ const Page = () => {
           </div>
 
           <Button className="text-center text-lg md:text-xl">
-            <Link href={"/"}>#2025Live</Link>
+            <Link href={"/"}>#{year + 1}Live</Link>
           </Button>
         </div>
       </main>

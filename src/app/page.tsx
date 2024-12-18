@@ -1,28 +1,66 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [timeLeft, setTimeLeft] = useState({
+    progress: 0,
+  });
+
+  const year = new Date().getFullYear();
+
+  const countDownto2025 = () => {
+    const startDate = new Date(`Jan 1, ${year} 00:00:00`).getTime();
+    const endDate = new Date(`Jan 1, ${year + 1} 00:00:00`).getTime();
+    const now = new Date().getTime();
+
+    const totalDuration = endDate - startDate;
+    const elapsed = now - startDate;
+    const progress = (elapsed / totalDuration) * 100;
+
+    setTimeLeft({
+      progress: Math.min(100, Math.max(0, progress)),
+    });
+  };
+
+  useEffect(() => {
+    const interval = setInterval(countDownto2025, 1000);
+    return () => clearInterval(interval);
+  });
   return (
     <div className="text-white dark:text-slate-950 bg-zinc-950 dark:bg-white min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] flex flex-col items-center justify-center">
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}
-        {/* Se elimina sm:items-start */}
         <div>
           <h1 className="text-5xl md:text-7xl font-medium tracking-tight">
-            #2025<span className="text-red-500">Live</span>
+            #{year + 1}
+            <span className="text-red-500">Live</span>
           </h1>
+        </div>
+        {/* Barra de progreso */}
+        <div className="w-full max-w-md mx-auto">
+          <div className="relative h-4 bg-gray-800 rounded-full overflow-hidden">
+            <div
+              className="absolute h-full bg-red-500 transition-all duration-500"
+              style={{ width: `${timeLeft.progress}%` }}
+            />
+          </div>
+          <p className="text-gray-400 mt-2 text-center">
+            {year} Progress: {timeLeft.progress.toFixed(5)}%
+          </p>
         </div>
         <div className="flex flex-col items-center justify-center space-y-4">
           <Button className="text-center text-lg md:text-xl mt-4 mb-4">
-            <Link href="/chao2024">#RoadTo2025</Link>
+            <Link href="/chao2024">#RoadTo{year + 1}</Link>
           </Button>
           <Button
             className="text-center text-lg md:text-xl mt-4 mb-4"
             variant={"destructive"}
             disabled
           >
-            <Loader2 className="animate-spin" /> Dec 31, 2024 10:00 UTC
+            <Loader2 className="animate-spin" /> Dec 31, {year} 10:00 UTC
           </Button>
         </div>
       </main>

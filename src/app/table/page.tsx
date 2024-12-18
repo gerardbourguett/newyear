@@ -13,17 +13,7 @@ const page = async () => {
     gmt_offset: number;
   };
 
-  const { data, error } = await supabase.from("timezones").select("*");
-
-  // Función para calcular la diferencia en minutos con respecto a la medianoche
-  const calculateMinutesToMidnight = (gmt_offset: number) => {
-    const now = new Date();
-    const localTime = new Date(now.getTime() + gmt_offset * 60 * 60 * 1000);
-    const midnight = new Date(localTime.setHours(0, 0, 0, 0)); // Hora de la medianoche local
-    const diff = localTime.getTime() - midnight.getTime();
-    return Math.abs(diff); // Diferencia en milisegundos
-  };
-  
+  const { data } = await supabase.from("timezones").select("*");
 
   return (
     <div>

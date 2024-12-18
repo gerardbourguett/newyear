@@ -10,6 +10,8 @@ const Page = () => {
     seconds: 0,
     days: 0,
   });
+    
+    
 
   const countDown = () => {
     const countDate = new Date("Dec 31, 2024 07:00:00").getTime();
@@ -43,7 +45,7 @@ const Page = () => {
           </h1>
 
           <div className="grid grid-cols-4 gap-4 items-center">
-            {["days", "hours", "minutes", "seconds"].map((unit, idx) => (
+            {(["days", "hours", "minutes", "seconds"] as (keyof typeof timeLeft)[]).map((unit, idx) => (
               <div key={idx} className="flex flex-col items-center space-y-2">
                 <div className="bg-gray-800 rounded-lg p-4 shadow-lg transition-transform transform hover:scale-105">
                   <span className="text-5xl md:text-6xl font-bold text-red-400">

@@ -1,6 +1,7 @@
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { supabase } from "@/utils/supabase/server";
 import {
   Card,
   CardContent,
@@ -12,20 +13,61 @@ import {
 import CountryFlag from "react-country-flag";
 import { Badge } from "@/components/ui/badge";
 
-const Nye = async () => {
-  const cookieStore = cookies();
-  const supabase = await createClient(cookieStore);
+const Nye = () => {
+  const [data, setData] = useState([]);
+  const [newData, setNewData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const { data } = await supabase.from("timezones").select("*");
+  useEffect(() => {
+    const fetchAndFilterData = async () => {
+      const { data: fetchedData, error } = await supabase
+        .from("timezones")
+        .select("*");
 
-  // Filtra las filas cuyo `timestamp` esté entre 23:00:00 y 00:00:00
-  const filteredData = (data || []).filter((row) => {
-    const utc = Math.floor(new Date().getTime() / 1000);
-    const localTimestamp = utc + row.gmt_offset;
-    const localDate = new Date(localTimestamp * 1000);
-    const localTime = localDate.toISOString().split("T")[1].slice(0, 8); // hh:mm:ss
-    return localTime >= "23:00:00" && localTime <= "23:59:59";
-  });
+      if (error) {
+        console.error("Error fetching data:", error);
+        return;
+      }
+
+      const currentUTC = Math.floor(new Date().getTime() / 1000);
+
+      const dataWithDifference = fetchedData.map((row) => {
+        const localTimestamp = currentUTC + row.gmt_offset;
+        const localDate = new Date(localTimestamp * 1000);
+
+        const secondsToMidnight =
+          24 * 3600 -
+          (localDate.getUTCHours() * 3600 +
+            localDate.getUTCMinutes() * 60 +
+            localDate.getUTCSeconds());
+
+        return { ...row, secondsToMidnight };
+      });
+
+      const minDifference = Math.min(
+        ...dataWithDifference.map((row) => row.secondsToMidnight)
+      );
+
+      const nearestToMidnight = dataWithDifference.filter(
+        (row) => row.secondsToMidnight === minDifference
+      );
+
+      setNewData(nearestToMidnight);
+      setLoading(false);
+    };
+
+    fetchAndFilterData(); // Llama inicialmente
+    const interval = setInterval(fetchAndFilterData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // Cuando newData cambia, actualiza data
+    if (!loading && newData.length > 0) {
+      setData(newData);
+    }
+  }, [newData, loading]);
 
   return (
     <div>
@@ -33,10 +75,9 @@ const Nye = async () => {
         Next countries that will celebrate New Year&apos;s Eve
       </p>
       <div className="p-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
-        {filteredData.map((item, index) => {
-          // Calcula la hora local
-          const utc = Math.floor(new Date().getTime() / 1000);
-          const localTimestamp = utc + item.gmt_offset;
+        {data.map((item, index) => {
+          const currentUTC = Math.floor(new Date().getTime() / 1000);
+          const localTimestamp = currentUTC + item.gmt_offset;
           const localDate = new Date(localTimestamp * 1000);
           const localTime = localDate
             .toUTCString()
@@ -47,7 +88,7 @@ const Nye = async () => {
           return (
             <Card
               key={index}
-              className="w-[350px] bg-zinc-700 text-white rounded-lg border-red-600"
+              className="w-[350px] bg-zinc-700 text-white rounded-lg border-red-600 transition-opacity duration-500"
             >
               <CardHeader className="flex items-center justify-center">
                 <CardTitle>

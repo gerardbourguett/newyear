@@ -19,7 +19,7 @@ const Watch = () => {
   return (
     <div className="">
       <h1 className="text-6xl md:text-7xl font-medium tracking-tight text-center mb-4">
-        Hour in <span className="text-red-600">your location</span>
+        Your local<span className="text-red-600">time</span>
       </h1>
       <div className="grid grid-cols-3 gap-4 items-center">
         <div className="flex flex-col items-center space-y-2">

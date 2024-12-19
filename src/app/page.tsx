@@ -30,7 +30,7 @@ export default function Home() {
     return () => clearInterval(interval);
   });
   return (
-    <div className="text-white dark:text-slate-950 bg-zinc-950 dark:bg-white min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] flex flex-col items-center justify-center">
+    <div className="">
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}
         <div>
@@ -53,7 +53,10 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center justify-center space-y-4">
           <Button className="text-center text-lg md:text-xl mt-4 mb-4">
-            <Link href="/chao2024">#RoadTo{year + 1}</Link>
+            <Link href="/chao2024">#CountdownTo{year + 1}</Link>
+          </Button>
+          <Button className="text-center text-lg md:text-xl mt-4 mb-4">
+            <Link href="/coming">#ComingTo{year + 1}</Link>
           </Button>
           <Button
             className="text-center text-lg md:text-xl mt-4 mb-4"

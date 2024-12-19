@@ -37,7 +37,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="text-white dark:text-slate-950 bg-zinc-950 dark:bg-white grid items-center justify-items-center min-h-screen">
+    <div className="">
       <main className="h-screen flex flex-col gap-8 row-start-2 items-center justify-center sm:items-start">
         <div className="text-center space-y-8">
           <h1 className="text-5xl md:text-7xl font-medium tracking-tight">

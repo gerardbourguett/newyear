@@ -13,9 +13,17 @@ import {
 import CountryFlag from "react-country-flag";
 import { Badge } from "@/components/ui/badge";
 
+interface TimezoneData {
+  gmt_offset: number;
+  country_code: string;
+  country_name: string;
+  zone_name: string;
+  secondsToMidnight: number;
+}
+
 const Nye = () => {
-  const [data, setData] = useState([]);
-  const [newData, setNewData] = useState([]);
+  const [data, setData] = useState<TimezoneData[]>([]);
+  const [newData, setNewData] = useState<TimezoneData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

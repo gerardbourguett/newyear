@@ -13,9 +13,7 @@ const page = () => {
             The Final <span className="text-red-600">Countdown</span>
           </h1>
           {/* Reloj digital en formato digital */}
-          <div className="flex justify-center mt-16">
-            <Watch />
-          </div>
+         
           <div className="flex justify-center items-center mt-16">
             <Nye />
           </div>

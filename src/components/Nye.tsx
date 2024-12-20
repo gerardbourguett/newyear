@@ -7,7 +7,7 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
+  CardHeader,<
   CardTitle,
 } from "@/components/ui/card";
 import CountryFlag from "react-country-flag";
@@ -80,7 +80,7 @@ const Nye = () => {
   return (
     <div>
       <p className="text-center text-xl font-bold uppercase">
-        Next countries that will celebrate New Year&apos;s Eve
+        Next timezones that will celebrate New Year&apos;s Eve
       </p>
       <div className="p-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
         {data.map((item, index) => {

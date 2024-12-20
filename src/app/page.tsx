@@ -1,6 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import Watch from "@/components/Watch";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -31,6 +33,11 @@ export default function Home() {
   });
   return (
     <div className="">
+      <div className="div">
+        {/* <div className="flex justify-center mt-16 mb-4">
+          <Watch />
+        </div> */}
+      </div>
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}
         <div>
@@ -53,54 +60,21 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center justify-center space-y-4">
           <Button className="text-center text-lg md:text-xl mt-4 mb-4">
-            <Link href="/chao2024">#CountdownTo{year + 1}</Link>
-          </Button>
-          <Button className="text-center text-lg md:text-xl mt-4 mb-4">
-            <Link href="/coming">#ComingTo{year + 1}</Link>
+            <Link href="/live">#RoadTo{year + 1}</Link>
           </Button>
           <Button
             className="text-center text-lg md:text-xl mt-4 mb-4"
             variant={"destructive"}
             disabled
           >
-            <Loader2 className="animate-spin" /> Dec 31, {year} 10:00 UTC
+            <Loader2 className="animate-spin" />{" "}
+            <Link href="/chao2024">Dec 31, {year} 10:00 UTC</Link>
           </Button>
         </div>
-      </main>
-      {/* <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          href="https://timezonedb.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -111,9 +85,40 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Go to nextjs.org →
+          TimezoneDB
         </a>
-      </footer> */}
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="https://www.twitch.tv/vanderfondi"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            aria-hidden
+            src="/twitch.svg"
+            alt="Twitch icon"
+            width={16}
+            height={16}
+          />
+          Twitch
+        </a>
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="/chao2024"
+          rel="noopener noreferrer"
+        >
+          <Image
+            aria-hidden
+            src="/calendar.svg"
+            alt="Calendar icon"
+            width={16}
+            height={16}
+          />
+          #Chao2024
+        </a>
+      </footer>
+      </main>
+      
     </div>
   );
 }

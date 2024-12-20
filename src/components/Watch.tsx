@@ -18,9 +18,9 @@ const Watch = () => {
 
   return (
     <div className="">
-      <h1 className="text-6xl md:text-7xl font-medium tracking-tight text-center mb-4">
+      {/* <h1 className="text-6xl md:text-7xl font-medium tracking-tight text-center mb-4">
         Your local<span className="text-red-600">time</span>
-      </h1>
+      </h1> */}
       <div className="grid grid-cols-3 gap-4 items-center">
         <div className="flex flex-col items-center space-y-2">
           <div className="bg-gray-800 rounded-lg p-4 shadow-lg transition-transform transform hover:scale-105">
@@ -29,7 +29,7 @@ const Watch = () => {
             </span>
           </div>
           <span className="text-sm md:text-lg uppercase font-medium text-gray-400">
-            Hours
+            {/* Hours */}
           </span>
         </div>
         <div className="flex flex-col items-center space-y-2">
@@ -39,7 +39,7 @@ const Watch = () => {
             </span>
           </div>
           <span className="text-sm md:text-lg uppercase font-medium text-gray-400">
-            Minutes
+            {/* Minutes */}
           </span>
         </div>
         <div className="flex flex-col items-center space-y-2">
@@ -49,7 +49,7 @@ const Watch = () => {
             </span>
           </div>
           <span className="text-sm md:text-lg uppercase font-medium text-gray-400">
-            Seconds
+            {/* Seconds */}
           </span>
         </div>
       </div>

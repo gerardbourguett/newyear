@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Watch from "@/components/Watch";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,9 +33,6 @@ export default function Home() {
   return (
     <div className="">
       <div className="div">
-        {/* <div className="flex justify-center mt-16 mb-4">
-          <Watch />
-        </div> */}
       </div>
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}

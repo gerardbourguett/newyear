@@ -1,6 +1,5 @@
 import React from "react";
 import Nye from "../../components/Nye";
-import Watch from "../../components/Watch";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 

@@ -9,10 +9,10 @@ const page = () => {
       <div className="">
         <div className="">
           <h1 className="text-6xl md:text-7xl font-medium tracking-tight text-center">
-            The Final <span className="text-red-600">Countdown</span>
+            #RoadTo<span className="text-red-600">2025</span>
           </h1>
           {/* Reloj digital en formato digital */}
-         
+
           <div className="flex justify-center items-center mt-16">
             <Nye />
           </div>

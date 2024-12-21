@@ -3,8 +3,15 @@ import { fetchSVGPaths } from "@/utils/supabase/client";
 import React, { useEffect, useState } from "react";
 
 const SvgMap = () => {
-  const [paths, setPaths] = useState([]);
-  const [svgContent, setSvgContent] = useState(null);
+  interface Path {
+    svg_path: string;
+    gmt_offset: number;
+    active: boolean;
+    country_code: string;
+  }
+
+  const [paths, setPaths] = useState<Path[]>([]);
+  const [svgContent, setSvgContent] = useState<string>("");
 
   useEffect(() => {
     const loadSvg = async () => {

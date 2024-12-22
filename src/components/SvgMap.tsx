@@ -56,8 +56,7 @@ const SvgMap = () => {
         const localDay = localDate.getUTCDate();
         const localMonth = localDate.getUTCMonth() + 1; // Meses son 0-indexados
 
-        const isMidnight =
-          localDay === 23 && localMonth === 12 && localHour === 0;
+        const isMidnight = localDay === 23 && localMonth === 12;
         const isPreMidnight =
           localDay === 22 && localMonth === 12 && localHour === 23;
 
@@ -90,7 +89,7 @@ const SvgMap = () => {
       const svgElement = document.getElementById(path.svg_path);
       if (svgElement) {
         if (path.isMidnight) {
-          svgElement.style.fill = tailwindRed500; // Sin color de relleno
+          svgElement.style.fill = "red"; // Sin color de relleno
           svgElement.style.stroke = "none"; // Contorno rojo con color de Tailwind
           svgElement.style.strokeWidth = "1"; // Grosor de la línea roja
         } else if (path.isPreMidnight) {

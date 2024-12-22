@@ -9,6 +9,7 @@ interface TimezoneData {
   country_name: string;
   zone_name: string;
   city: string;
+  isPreMidnight?: boolean;
   isMidnight?: boolean;
 }
 
@@ -51,11 +52,14 @@ const SvgMap = () => {
       const updatedPaths = (fetchedData || []).map((row) => {
         const localTimestamp = currentUTC + row.gmt_offset;
         const localDate = new Date(localTimestamp * 1000);
-
+        const localHour = localDate.getUTCHours();
         const localDay = localDate.getUTCDate();
         const localMonth = localDate.getUTCMonth() + 1; // Meses son 0-indexados
 
-        const isMidnight = localDay === 23 && localMonth === 12;
+        const isMidnight =
+          localDay === 23 && localMonth === 12 && localHour === 0;
+        const isPreMidnight =
+          localDay === 22 && localMonth === 12 && localHour === 23;
 
         return {
           svg_path: row.svg_path,
@@ -65,6 +69,7 @@ const SvgMap = () => {
           zone_name: row.zone_name,
           city: row.city,
           isMidnight,
+          isPreMidnight,
         };
       });
 
@@ -77,11 +82,26 @@ const SvgMap = () => {
   }, []);
 
   useEffect(() => {
-    // Actualiza el color de los elementos SVG según el estado `isMidnight`
+    // Color Tailwind CSS `text-red-500` que corresponde a rgb(239 68 68)
+    const tailwindRed500 = "rgb(239 68 68 / var(--tw-text-opacity, 1))";
+
+    // Actualiza el color de los elementos SVG según el estado `isPreMidnight` o `isMidnight`
     paths.forEach((path) => {
       const svgElement = document.getElementById(path.svg_path);
       if (svgElement) {
-        svgElement.style.fill = path.isMidnight ? "red" : "none";
+        if (path.isMidnight) {
+          svgElement.style.fill = tailwindRed500; // Sin color de relleno
+          svgElement.style.stroke = "none"; // Contorno rojo con color de Tailwind
+          svgElement.style.strokeWidth = "1"; // Grosor de la línea roja
+        } else if (path.isPreMidnight) {
+          svgElement.style.fill = "none"; // Sin color de relleno
+          svgElement.style.stroke = tailwindRed500; // Contorno rojo con color de Tailwind
+          svgElement.style.strokeWidth = "1"; // Grosor de la línea roja leve
+          svgElement.style.opacity = "0.2"; // Opacidad más baja para un rojo leve
+        } else {
+          svgElement.style.fill = "none"; // Sin color
+          svgElement.style.stroke = "none"; // Sin contorno
+        }
       }
     });
   }, [paths]);

@@ -19,7 +19,7 @@ interface TimezoneData {
   country_code: string;
   country_name: string;
   zone_name: string;
-  secondsToMidnight: number;
+  secondsToTarget: number;
   city: string;
   stream: string;
 }
@@ -43,29 +43,26 @@ const Nye = () => {
       }
 
       const currentUTC = Math.floor(new Date().getTime() / 1000);
+      const targetDate = new Date("2025-01-01T00:00:00Z").getTime() / 1000; // Fecha objetivo en UTC
 
       const dataWithDifference = fetchedData.map((row) => {
         const localTimestamp = currentUTC + row.gmt_offset;
-        const localDate = new Date(localTimestamp * 1000);
 
-        const secondsToMidnight =
-          24 * 3600 -
-          (localDate.getUTCHours() * 3600 +
-            localDate.getUTCMinutes() * 60 +
-            localDate.getUTCSeconds());
+        // Calcular segundos restantes hasta 1 de enero de 2025 a las 00:00
+        const secondsToTarget = targetDate - localTimestamp;
 
-        return { ...row, secondsToMidnight };
+        return { ...row, secondsToTarget };
       });
 
       const minDifference = Math.min(
-        ...dataWithDifference.map((row) => row.secondsToMidnight)
+        ...dataWithDifference.map((row) => row.secondsToTarget)
       );
 
-      const nearestToMidnight = dataWithDifference.filter(
-        (row) => row.secondsToMidnight === minDifference
+      const nearestToTarget = dataWithDifference.filter(
+        (row) => row.secondsToTarget === minDifference
       );
 
-      setNewData(nearestToMidnight);
+      setNewData(nearestToTarget);
       setLoading(false);
     };
 
@@ -85,14 +82,22 @@ const Nye = () => {
       const localTimestamp = currentUTC + firstItem.gmt_offset;
       const localDate = new Date(localTimestamp * 1000);
 
-      // Formatear la hora local y añadir el GMT dinámico
+      // Formatear la fecha local
+      const year = localDate.getUTCFullYear();
+      const month = (localDate.getUTCMonth() + 1).toString().padStart(2, "0"); // Mes empieza en 0
+      const day = localDate.getUTCDate().toString().padStart(2, "0");
+
+      // Formatear la hora local
       const hours = localDate.getUTCHours().toString().padStart(2, "0");
       const minutes = localDate.getUTCMinutes().toString().padStart(2, "0");
       const seconds = localDate.getUTCSeconds().toString().padStart(2, "0");
+
+      // GMT dinámico
       const gmtOffsetHours = firstItem.gmt_offset / 3600;
       const gmtSign = gmtOffsetHours >= 0 ? "+" : "-";
 
-      const formattedTime = `${hours}:${minutes}:${seconds} GMT${gmtSign}${Math.abs(
+      // Formatear fecha y hora
+      const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds} GMT${gmtSign}${Math.abs(
         gmtOffsetHours
       )}`;
 
@@ -108,13 +113,13 @@ const Nye = () => {
           <Card className="bg-zinc-800 text-white shadow-lg border border-red-500">
             <CardContent className="text-center py-4">
               <p className="text-xl uppercase text-gray-400">Timezone Time</p>
-              <p className="text-4xl font-bold text-red-500">{localTime}</p>
+              <p className="text-4xl font-bold text-red-800">{localTime}</p>
             </CardContent>
           </Card>
         </div>
       </div>
       <div className="text-center my-6">
-        <h2 className="text-3xl font-extrabold uppercase text-red-500 tracking-wide">
+        <h2 className="text-3xl font-extrabold uppercase text-red-800 tracking-wide">
           Next timezones that will celebrate New Year&apos;s Eve
         </h2>
         <p className="text-sm text-gray-400 mt-2">
@@ -142,7 +147,7 @@ const Nye = () => {
             </CardHeader>
             <CardContent className="text-center">
               <p className="font-bold uppercase">{item.country_name}</p>
-              <p>{item.city}</p>
+              <p>{item.zone_name}</p>
             </CardContent>
             <CardFooter>
               <CardDescription>

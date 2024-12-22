@@ -104,7 +104,7 @@ const SvgMap = () => {
 
   return (
     <div className="">
-      <SvgComponent className="xl:w-[950] lg:w-[800px] md:w-[600px] sm:w-[400px] w-[200px] h-auto" />
+      <SvgComponent className="xl:w-[950px] lg:w-[800px] md:w-[600px] sm:w-[400px] w-[200px] h-auto" />
     </div>
   );
 };

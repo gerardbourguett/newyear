@@ -34,15 +34,13 @@ export default function Home() {
   });
   return (
     <div className="">
-      <div className="flex justify-center items-center h-screen">
-        <SvgMap />
-      </div>
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}
+        <SvgMap />
         <div>
           <h1 className="text-5xl md:text-7xl font-medium tracking-tight">
             #{year + 1}
-            <span className="text-red-500">Live</span>
+            <span className="text-red-600">Live</span>
           </h1>
         </div>
         {/* Barra de progreso */}

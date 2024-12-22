@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
 import { supabase } from "@/utils/supabase/server";
-import SvgComponent from "./SvgComponent";
+import React, { useEffect, useRef, useState } from "react";
 
 interface TimezoneData {
   svg_path: string;
@@ -21,7 +20,7 @@ const SvgMap = () => {
   useEffect(() => {
     const loadSvg = async () => {
       try {
-        const response = await fetch("/world.svg");
+        const response = await fetch("/world2.svg");
         const svgText = await response.text();
 
         if (svgContainerRef.current) {
@@ -57,9 +56,9 @@ const SvgMap = () => {
         const localDay = localDate.getUTCDate();
         const localMonth = localDate.getUTCMonth() + 1; // Meses son 0-indexados
 
-        const isMidnight = localDay === 1 && localMonth === 1;
+        const isMidnight = localDay === 23 && localMonth === 12;
         const isPreMidnight =
-          localDay === 31 && localMonth === 12 && localHour === 23;
+          localDay === 22 && localMonth === 12 && localHour === 23;
 
         return {
           svg_path: row.svg_path,
@@ -103,8 +102,8 @@ const SvgMap = () => {
   }, [paths]);
 
   return (
-    <div className="">
-      <SvgComponent className="xl:w-[950] lg:w-[800px] md:w-[600px] sm:w-[400px] w-[200px] h-auto" />
+    <div>
+      <div ref={svgContainerRef} aria-label="SVG Map"></div>
     </div>
   );
 };

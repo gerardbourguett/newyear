@@ -13,8 +13,9 @@ export default function Home() {
   const year = new Date().getFullYear();
 
   const countDownto2025 = () => {
-    const startDate = new Date(`Jan 1, ${year} 00:00:00`).getTime();
-    const endDate = new Date(`Jan 1, ${year + 1} 00:00:00`).getTime();
+    const startDate = new Date(Date.UTC(year, 0, 1, 0, 0, 0)).getTime(); // Usar UTC para evitar problemas de zona horaria
+    const endDate = new Date(Date.UTC(year + 1, 0, 1, 0, 0, 0)).getTime();
+
     const now = new Date().getTime();
 
     const totalDuration = endDate - startDate;
@@ -32,8 +33,6 @@ export default function Home() {
   });
   return (
     <div className="">
-      <div className="div">
-      </div>
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}
         <div>
@@ -68,53 +67,52 @@ export default function Home() {
           </Button>
         </div>
         <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://timezonedb.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          TimezoneDB
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://www.twitch.tv/vanderfondi"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/twitch.svg"
-            alt="Twitch icon"
-            width={16}
-            height={16}
-          />
-          Twitch
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/chao2024"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/calendar.svg"
-            alt="Calendar icon"
-            width={16}
-            height={16}
-          />
-          #Chao2024
-        </a>
-      </footer>
+          <a
+            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+            href="https://timezonedb.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              aria-hidden
+              src="/globe.svg"
+              alt="Globe icon"
+              width={16}
+              height={16}
+            />
+            TimezoneDB
+          </a>
+          <a
+            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+            href="https://www.twitch.tv/vanderfondi"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              aria-hidden
+              src="/twitch.svg"
+              alt="Twitch icon"
+              width={16}
+              height={16}
+            />
+            Twitch
+          </a>
+          <a
+            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+            href="/chao2024"
+            rel="noopener noreferrer"
+          >
+            <Image
+              aria-hidden
+              src="/calendar.svg"
+              alt="Calendar icon"
+              width={16}
+              height={16}
+            />
+            #Chao2024
+          </a>
+        </footer>
       </main>
-      
     </div>
   );
 }

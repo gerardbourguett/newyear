@@ -43,11 +43,15 @@ const Nye = () => {
       }
 
       const currentUTC = Math.floor(new Date().getTime() / 1000);
-      const targetDate = new Date("2025-01-01T00:00:00Z").getTime() / 1000;
+
+      const targetDate = new Date();
+      targetDate.setUTCDate(targetDate.getUTCDate() + 1); // Día siguiente
+      targetDate.setUTCHours(0, 0, 0, 0); // Medianoche UTC
+      const targetTimestamp = Math.floor(targetDate.getTime() / 1000);
 
       const dataWithDifference = fetchedData.map((row) => {
         const localTimestamp = currentUTC + row.gmt_offset;
-        const secondsToTarget = targetDate - localTimestamp;
+        const secondsToTarget = targetTimestamp - localTimestamp;
         return { ...row, secondsToTarget };
       });
 

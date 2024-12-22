@@ -1,15 +1,20 @@
 "use client";
-import { fetchSVGPaths } from "@/utils/supabase/client";
-import React, { useEffect, useState, useRef } from "react";
+import { supabase } from "@/utils/supabase/server";
+import React, { useEffect, useRef, useState } from "react";
+
+interface TimezoneData {
+  svg_path: string;
+  gmt_offset: number;
+  country_code: string;
+  country_name: string;
+  zone_name: string;
+  city: string;
+  isMidnight?: boolean;
+}
 
 const SvgMap = () => {
-  const [paths, setPaths] = useState<{ svg_path: string; active: boolean }[]>(
-    []
-  );
-  const [prevPaths, setPrevPaths] = useState<
-    { svg_path: string; active: boolean }[]
-  >([]);
-  const svgContainerRef = useRef<HTMLDivElement>(null);
+  const [paths, setPaths] = useState<TimezoneData[]>([]);
+  const svgContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const loadSvg = async () => {
@@ -30,35 +35,60 @@ const SvgMap = () => {
 
   useEffect(() => {
     const updatePaths = async () => {
-      try {
-        const data = await fetchSVGPaths();
-        setPaths(data);
-      } catch (error) {
-        console.error("Error fetching SVG paths:", error);
+      const { data: fetchedData, error } = await supabase
+        .from("timezones")
+        .select(
+          "svg_path, gmt_offset, country_code, country_name, zone_name, city"
+        );
+
+      if (error) {
+        console.error("Error fetching data:", error);
+        return;
       }
+
+      const currentUTC = Math.floor(new Date().getTime() / 1000);
+
+      const updatedPaths = (fetchedData || []).map((row) => {
+        const localTimestamp = currentUTC + row.gmt_offset;
+        const localDate = new Date(localTimestamp * 1000);
+
+        const localDay = localDate.getUTCDate();
+        const localMonth = localDate.getUTCMonth() + 1; // Meses son 0-indexados
+
+        const isMidnight = localDay === 23 && localMonth === 12;
+
+        return {
+          svg_path: row.svg_path,
+          gmt_offset: row.gmt_offset,
+          country_code: row.country_code,
+          country_name: row.country_name,
+          zone_name: row.zone_name,
+          city: row.city,
+          isMidnight,
+        };
+      });
+
+      setPaths(updatedPaths);
     };
 
     updatePaths();
-    const interval = setInterval(updatePaths, 1000);
-
+    const interval = setInterval(updatePaths, 1000); // Actualizar cada segundo
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    if (JSON.stringify(paths) !== JSON.stringify(prevPaths)) {
-      setPrevPaths(paths);
-      paths.forEach((path) => {
-        const svgElement = document.getElementById(path.svg_path);
-        if (svgElement) {
-          svgElement.style.fill = path.active ? "red" : "none";
-        }
-      });
-    }
-  }, [paths, prevPaths]);
+    // Actualiza el color de los elementos SVG según el estado `isMidnight`
+    paths.forEach((path) => {
+      const svgElement = document.getElementById(path.svg_path);
+      if (svgElement) {
+        svgElement.style.fill = path.isMidnight ? "red" : "none";
+      }
+    });
+  }, [paths]);
 
   return (
     <div>
-      <div ref={svgContainerRef} aria-label="SVG Map" />
+      <div ref={svgContainerRef} aria-label="SVG Map"></div>
     </div>
   );
 };

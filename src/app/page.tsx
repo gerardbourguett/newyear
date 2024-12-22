@@ -1,4 +1,5 @@
 "use client";
+import SvgMap from "@/components/SvgMap";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
@@ -33,6 +34,9 @@ export default function Home() {
   });
   return (
     <div className="">
+      <div className="flex justify-center items-center h-screen">
+        <SvgMap />
+      </div>
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}
         <div>

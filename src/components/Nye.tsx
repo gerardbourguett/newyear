@@ -109,7 +109,7 @@ const Nye = () => {
     data.map((item, index) => (
       <Card
         key={index}
-        className="w-[350px] bg-zinc-700 text-white rounded-lg border-red-600 transition-opacity duration-500"
+        className="bg-zinc-700 text-white rounded-lg border-red-600 transition-opacity duration-500"
       >
         <CardHeader className="flex items-center justify-center">
           <CardTitle>
@@ -150,7 +150,7 @@ const Nye = () => {
     <div>
       {/* Reloj Global */}
       <div className="flex justify-center items-center my-8">
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-sm mx-auto">
           <Card className="bg-zinc-800 text-white shadow-lg border border-red-500">
             <CardContent className="text-center py-4">
               <p className="text-xl uppercase text-gray-400">Timezone Time</p>
@@ -174,14 +174,14 @@ const Nye = () => {
         <h3 className="text-2xl font-bold text-red-500 my-4">
           Closest to Midnight
         </h3>
-        <div className="p-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+        <div className="p-4 grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 mx-auto">
           {renderCards(closest)}
         </div>
       </div>
 
       <div>
         <h3 className="text-2xl font-bold text-yellow-500 my-4">Next Up</h3>
-        <div className="p-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+        <div className="p-4 grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 mx-auto">
           {renderCards(nextGroup)}
         </div>
       </div>

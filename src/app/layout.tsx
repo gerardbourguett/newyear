@@ -32,6 +32,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>#2025Live</title>
+        <meta name="title" content="#2025Live" />
+        <meta
+          name="description"
+          content="Countdown to New Year celebrations with a global map, country timelines, and Twitch specials."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://https://nye.today/" />
+        <meta property="og:title" content="#2025Live" />
+        <meta
+          property="og:description"
+          content="Countdown to New Year celebrations with a global map, country timelines, and Twitch specials."
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://https://nye.today/" />
+        <meta property="twitter:title" content="#2025Live" />
+        <meta
+          property="twitter:description"
+          content="Countdown to New Year celebrations with a global map, country timelines, and Twitch specials."
+        />
+
+        <meta name="author" content="@vanderfondi" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden ${inter.className}`}
       >

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/ProgressBarProvider";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,8 +37,9 @@ export default function RootLayout({
       >
         <div className="text-white dark:text-slate-950 bg-zinc-950 dark:bg-white min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] flex flex-col items-center justify-center">
           <Providers>
-            <Analytics />
             {children}
+            <Analytics />
+            <SpeedInsights />
           </Providers>
         </div>
       </body>

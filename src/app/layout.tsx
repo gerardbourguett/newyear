@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "@/components/ProgressBarProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <title>#2025Live</title>
@@ -58,7 +59,7 @@ export default function RootLayout({
         />
 
         <meta name="author" content="@vanderfondi" />
-      </head>
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden ${inter.className}`}
       >

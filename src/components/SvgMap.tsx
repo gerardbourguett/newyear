@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { supabase } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import SvgComponent from "./SvgComponent";
 
 interface TimezoneData {
@@ -17,6 +17,7 @@ interface TimezoneData {
 const SvgMap = () => {
   const [paths, setPaths] = useState<TimezoneData[]>([]);
   const svgContainerRef = useRef<HTMLDivElement | null>(null);
+  const supabase = createClient();
 
   useEffect(() => {
     const loadSvg = async () => {

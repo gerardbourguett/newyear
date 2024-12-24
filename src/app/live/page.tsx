@@ -8,8 +8,8 @@ const page = () => {
   return (
     <div>
       <div className="">
+        <ModeToggle />
         <div className="">
-          <ModeToggle />
           <h1 className="text-6xl md:text-7xl font-medium tracking-tight text-center">
             #RoadTo<span className="text-red-600">2025</span>
           </h1>

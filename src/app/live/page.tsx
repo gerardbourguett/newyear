@@ -2,12 +2,14 @@ import React from "react";
 import Nye from "../../components/Nye";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const page = () => {
   return (
     <div>
       <div className="">
         <div className="">
+          <ModeToggle />
           <h1 className="text-6xl md:text-7xl font-medium tracking-tight text-center">
             #RoadTo<span className="text-red-600">2025</span>
           </h1>

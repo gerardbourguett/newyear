@@ -1,4 +1,5 @@
 "use client";
+import { ModeToggle } from "@/components/ModeToggle";
 import SvgMap from "@/components/SvgMap";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -36,6 +37,7 @@ export default function Home() {
     <div className="">
       <main className="flex flex-col gap-8 items-center justify-center">
         {" "}
+        <ModeToggle />
         <SvgMap />
         <div>
           <h1 className="text-5xl md:text-7xl font-medium tracking-tight">
@@ -56,9 +58,17 @@ export default function Home() {
           </p>
         </div>
         <div className="flex flex-col items-center justify-center space-y-4">
-          <Button className="text-center text-lg md:text-xl mt-4 mb-4">
-            <Link href="/live">#RoadTo{year + 1}</Link>
-          </Button>
+          <div className="grid grid-flow-row justify-between">
+            <div className="flex justify-center gap-4">
+              <Button className="text-center text-lg md:text-xl mt-4 mb-4">
+                <Link href="/live">#RoadTo{year + 1}</Link>
+              </Button>
+              <Button className="text-center text-lg md:text-xl mt-4 mb-4">
+                <Link href="/watch">LIVESTREAMS</Link>
+              </Button>
+            </div>
+          </div>
+
           <Button
             className="text-center text-lg md:text-xl mt-4 mb-4"
             variant={"destructive"}
